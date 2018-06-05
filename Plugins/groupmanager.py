@@ -1,4 +1,5 @@
 
+
 # -*- coding: utf-8 -*-
 admint = 'این کاربر ادمینه 😶'
 
@@ -20,6 +21,22 @@ def help(m):
    if is_mod(m.chat.id,m.from_user.id):
     bot.reply_to(m,helpgp)
 	
+@bot.message_handler(func=lambda m: m.text.startswith("حذف"))
+def delmsg(m):
+ try:
+   if is_mod(m.chat.id,m.from_user.id):
+    if int(m.text.split()[1]) > int(500):
+     bot.reply_to(m,'حدااکثر تعداد 500 تا است ⚡️')	
+    else:
+       for x in range(int(m.text.split()[1])):
+                try:
+                    bot.delete_message(m.chat.id, m.message_id - x)
+                except:
+                    pass 
+       bot.send_message(m.chat.id,'{} پیام حذف شد'.format(m.text.split()[1]))
+ except:
+  pass 
+  
 @bot.message_handler(func=lambda m: m.text == "اعتبار")
 def sharj(m):
    if is_mod(m.chat.id,m.from_user.id):
@@ -261,3 +278,4 @@ def kick(m):
    print e
    
 #Group-Manager
+
