@@ -25,5 +25,5 @@ chmod +x launch.sh
 screen ./lanch.sh
 ```
 
-برای دریافت اخبار آپدیت ها در [کانال اسپید استار](https://telegram.me/speedstar) عضو شوید
+برای دریافت اخبار آپدیت ها در [کانال اسپید استار](https://telegram.me/speed_star) عضو شوید
 >* روزانه آپدیت های جدید برای سورس قرار میدهیم
