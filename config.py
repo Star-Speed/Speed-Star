@@ -102,6 +102,7 @@ Plugins = [
 "groupmanager",
 "tools",
 "callback",
+"azan",
 "msg-checks",
 ]
 
