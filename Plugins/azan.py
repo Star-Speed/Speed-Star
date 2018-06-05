@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 @bot.message_handler(func=lambda m: m.text.startswith("اذان"))
 def getazan(m):
        fl = json.loads(urllib.urlopen("https://maps.googleapis.com/maps/api/geocode/json?address={}".format(m.text.replace('اذان ',''))).read())
