@@ -1,6 +1,6 @@
 #!/bin/bash
 
-read -p "Are you sure you want to install Magic Star Robot? (Y/n): " q
+read -p "Are you sure you want to install Speed Star Robot? (Y/n): " q
 
 if [ "$q" == "y" ] || [ "$q" == "Y" ] || [ "$q" == "" ]; then
     echo -e "\e[1;36mInstalling package\e[0m"
@@ -17,6 +17,6 @@ if [ "$q" == "y" ] || [ "$q" == "Y" ] || [ "$q" == "" ]; then
     #sudo apt install python2.7
     #sudo pip install pytelegrambotapi py==1.4.29 pytest==2.7.2 requests==2.7.0 six==1.9.0 wheel==0.24.0
     chmod +x launch.sh
-    echo -e "\e[1;32mInstallation was successful! You can now run Magic Star.\e[0m"
+    echo -e "\e[1;32mInstallation was successful! You can now run Speed Star.\e[0m"
     echo " "
 fi
