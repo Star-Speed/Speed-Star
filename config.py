@@ -87,14 +87,14 @@ helpgp = '''راهنمای اسپید استار ✨
 starttext = '''
 💫 به ربات "آنتی اسپم Speed Star🌟 " خوش امدید ✨
 ⚜️ ساخته شده با ❤️ فقط برای شما ☺️
-Git : https://github.com/Magic-Star/MagicBot.git
+Git : https://github.com/Star-Speed/Speed-Star
 @MagicStar'''
 
 about = '''Speed Star Bot .
 Version : 1.2
-Channel : @MagicStar
-Bot : @MagicStarRobot
-Github : https://github.com/Magic-Star/MagicBot
+Channel : @Speed_Star
+Bot : @SpeedStarBot
+Github : https://github.com/Star-Speed/Speed-Star
 '''
 
 Plugins = [
