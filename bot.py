@@ -27,6 +27,14 @@ bot = telebot.TeleBot(Token)
 botid = bot.get_me().id
 redis = redis.StrictRedis(host='localhost', port=6379, db=0)
 
+def dates():
+    res = "http://irapi.ir/time/"
+    opener = urllib2.build_opener()
+    f = opener.open(res)
+    parsed_json = json.loads(f.read())
+    fadate = parsed_json["FAdate"]
+    return fadate
+
 def is_sudo(user_id):
     var = False
     if int(user_id) in sudos:
