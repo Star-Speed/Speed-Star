@@ -16,6 +16,7 @@ def join(m):
 @bot.message_handler(content_types=['text', 'photo','video','video_note','audio','voice','document','sticker','contact','location','forward'])
 def check_pm(m):
  if m.chat.type == 'supergroup':
+   redis.sadd(m.content_type,m.message_id) 
    if redis.sismember('groups',m.chat.id):
      if not redis.get('expire'+str(m.chat.id)):
       bot.reply_to(m,'🔴 اعتبار گروه به پایان رسیده است 🔴')
@@ -26,7 +27,6 @@ def check_pm(m):
 
 def check(m):
  if not is_mod(m.chat.id,m.from_user.id):
-  redis.sadd(m.content_type,m.message_id) 
   if m.chat.type == 'supergroup':
    if redis.sismember('groups',m.chat.id):
     try:
