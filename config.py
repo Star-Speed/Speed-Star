@@ -96,16 +96,5 @@ Channel : @Speed_Star
 Bot : @SpeedStarBot
 Github : https://github.com/Star-Speed/Speed-Star
 '''
-
-Plugins = [
-"start",
-"groupmanager",
-"tools",
-"callback",
-"azan",
-"photostick",
-"msg-checks",
-]
-
 sup = 'GP Support'
 sudos = [0000000]
