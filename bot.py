@@ -100,11 +100,23 @@ for plugin in os.listdir('Plugins'):
     print("\033[1;36mLoading Plugin > " +"\033[0;32m" + plugin)
    else:
     pass
-  except:
+  except Exception as e:
     print("\033[01;31mError In Loading Plugin " + plugin + "\033[0m")
     print("\033[01;31m" + os.popen("python ./Plugins/"+ plugin).read() + "\033[0m")
-    sys.exit()
+    bot.send_message(sup,'⚠️ خطا در اجرا پلاگین {} ⚠️\n⁉️ شرح خطا : {}'.format(plugin,e))
 print("\n\033[0;33mBot Is Running ...\n\033[0;33mSpeed Star\033[0m")
 
+@bot.message_handler(content_types=['text', 'photo','video','video_note','audio','voice','document','sticker','contact','location','forward'])
+def check_pm(m):
+ if m.chat.type == 'supergroup':
+   redis.sadd(m.content_type,m.message_id) 
+   if redis.sismember('groups',m.chat.id):
+     if not redis.get('expire'+str(m.chat.id)):
+      bot.reply_to(m,'🔴 اعتبار گروه به پایان رسیده است 🔴')
+      redis.srem('groups',m.chat.id)
+      bot.leave_chat(m.chat.id)
+     else:
+      check(m)
+	  
 bot.polling(True)
 
