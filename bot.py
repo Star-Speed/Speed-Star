@@ -27,8 +27,8 @@ execfile("config.py")
 bot = telebot.TeleBot(Token)
 botid = bot.get_me().id
 redis = redis.StrictRedis(host='localhost', port=6379, db=0)
-redis.set('tools',True)
-redis.set('callback',True)
+redis.set('tools.py',True)
+redis.set('callback.py',True)
 
 def dates():
     res = "http://irapi.ir/time/"
@@ -85,7 +85,7 @@ def panel_locks(gp):
         return markup
 def plugs():
   markup = types.InlineKeyboardMarkup()
-  for plugin in Plugins:
+  for plugin in os.listdir('Plugins'):
     if redis.get(plugin):
      type = '✅'
     else:
@@ -93,17 +93,18 @@ def plugs():
     markup.add(types.InlineKeyboardButton('📁{} : {}'.format(plugin,type),callback_data='plug:'+str(plugin)))
   return markup
 	
-for plugin in Plugins:
+for plugin in os.listdir('Plugins'):
   try:
    if redis.get(plugin):
-    execfile("Plugins/" + plugin + ".py")
+    execfile("Plugins/" + plugin)
     print("\033[1;36mLoading Plugin > " +"\033[0;32m" + plugin)
    else:
     pass
   except:
     print("\033[01;31mError In Loading Plugin " + plugin + "\033[0m")
-    print("\033[01;31m" + os.popen("python ./Plugins/"+ plugin +".py").read() + "\033[0m")
+    print("\033[01;31m" + os.popen("python ./Plugins/"+ plugin).read() + "\033[0m")
     sys.exit()
 print("\n\033[0;33mBot Is Running ...\n\033[0;33mSpeed Star\033[0m")
 
 bot.polling(True)
+
