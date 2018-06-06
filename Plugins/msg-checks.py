@@ -27,24 +27,9 @@ def check(m):
      gp = m.chat.id
      uid = m.from_user.id
      mid = m.message_id
-     if m.sticker and redis.get('sticker'+str(gp)):
-      bot.delete_message(gp,mid)
-     if m.photo and redis.get('photo'+str(gp)):
-      bot.delete_message(gp,mid)
-     if m.video and redis.get('video'+str(gp)):
-      bot.delete_message(gp,mid)
-     if m.audio and redis.get('audio'+str(gp)):
-      bot.delete_message(gp,mid)
-     if m.voice and redis.get('voice'+str(gp)):
-      bot.delete_message(gp,mid)
-     if m.document and redis.get('gif'+str(gp)):
-      bot.delete_message(gp,mid)
-     if m.video_note and redis.get('videonote'+str(gp)):
-      bot.delete_message(gp,mid)
-     if m.contact and redis.get('contact'+str(gp)):
-      bot.delete_message(gp,mid)
-     if m.text and redis.get('text'+str(gp)):
-      bot.delete_message(gp,mid)
+     if m.content_type:
+        if redis.get(str(m.content_type)+str(gp)):
+          bot.delete_message(gp,mid)
      if m.forward_from or m.forward_from_chat and redis.get('fwd'+str(gp)):
       bot.delete_message(gp,mid)
      if m.text and len(m.text) > int(redis.get('len'+str(gp)) or 70) and redis.get('lens'+str(gp)):
@@ -72,4 +57,6 @@ def check(m):
     except:
      print('err')
   #Msg-Checks   
+  
+
   
