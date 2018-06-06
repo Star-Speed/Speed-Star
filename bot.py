@@ -14,8 +14,8 @@ import random
 from random import randint as rand
 import urllib
 import urllib2
-import requests
 import json
+import requests
 from telebot import types
 from time import sleep
 reload(sys)
@@ -27,6 +27,8 @@ execfile("config.py")
 bot = telebot.TeleBot(Token)
 botid = bot.get_me().id
 redis = redis.StrictRedis(host='localhost', port=6379, db=0)
+redis.set('tools',True)
+redis.set('callback',True)
 
 def dates():
     res = "http://irapi.ir/time/"
@@ -34,8 +36,7 @@ def dates():
     f = opener.open(res)
     parsed_json = json.loads(f.read())
     fadate = parsed_json["FAdate"]
-    return fadate
-
+    return fadate 
 def is_sudo(user_id):
     var = False
     if int(user_id) in sudos:
@@ -82,11 +83,23 @@ def panel_locks(gp):
             callback = "lock:" + i
           markup.add(types.InlineKeyboardButton(str(ee)+str(typenames[i]),callback_data=callback),types.InlineKeyboardButton(e,callback_data=callback))
         return markup
-  
+def plugs():
+  markup = types.InlineKeyboardMarkup()
+  for plugin in Plugins:
+    if redis.get(plugin):
+     type = '✅'
+    else:
+     type = '❌'
+    markup.add(types.InlineKeyboardButton('📁{} : {}'.format(plugin,type),callback_data='plug:'+str(plugin)))
+  return markup
+	
 for plugin in Plugins:
   try:
+   if redis.get(plugin):
     execfile("Plugins/" + plugin + ".py")
     print("\033[1;36mLoading Plugin > " +"\033[0;32m" + plugin)
+   else:
+    pass
   except:
     print("\033[01;31mError In Loading Plugin " + plugin + "\033[0m")
     print("\033[01;31m" + os.popen("python ./Plugins/"+ plugin +".py").read() + "\033[0m")
