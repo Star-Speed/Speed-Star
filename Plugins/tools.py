@@ -26,7 +26,18 @@ def reload(m):
     python = sys.executable
     os.execl(python, python, *sys.argv)
 
-	
+@bot.message_handler(func=lambda m: m.text.startswith("جواب"))
+def answer(m):
+ try:
+   if is_sudo(m.from_user.id):
+       if m.reply_to_message:
+         id = m.reply_to_message.forward_from.id
+         text = m.text.replace('جواب ','')
+         bot.send_message(id,'پاسخ پشتیبان 👇 \n{} '.format(text))
+         bot.reply_to(m,'ارسال شد')
+ except:
+  print('err')
+  
 @bot.message_handler(func=lambda m: m.text == "اطلاعات")
 def status(m):
   if is_sudo(m.from_user.id):
@@ -104,3 +115,4 @@ def speed(m):
    bot.reply_ro(m,about)
 
 #Tools
+
