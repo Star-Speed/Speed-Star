@@ -103,6 +103,7 @@ Plugins = [
 "tools",
 "callback",
 "azan",
+"photostick",
 "msg-checks",
 ]
 
