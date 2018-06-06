@@ -13,17 +13,6 @@ def join(m):
           bot.reply_to(m,'اسپید استار فعال شد 💫')
           redis.sadd('groups',m.chat.id)
 			   
-@bot.message_handler(content_types=['text', 'photo','video','video_note','audio','voice','document','sticker','contact','location','forward'])
-def check_pm(m):
- if m.chat.type == 'supergroup':
-   redis.sadd(m.content_type,m.message_id) 
-   if redis.sismember('groups',m.chat.id):
-     if not redis.get('expire'+str(m.chat.id)):
-      bot.reply_to(m,'🔴 اعتبار گروه به پایان رسیده است 🔴')
-      redis.srem('groups',m.chat.id)
-      bot.leave_chat(m.chat.id)
-     else:
-      check(m)
 
 def check(m):
  if not is_mod(m.chat.id,m.from_user.id):
