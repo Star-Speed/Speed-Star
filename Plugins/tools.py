@@ -19,7 +19,7 @@ def remgp(m):
    else:
      bot.reply_to(m,'ربات غیرفعال شد ❗️')
      redis.srem('groups',m.chat.id)
-	
+
 @bot.message_handler(func=lambda m: m.text == "ریلود")
 def reload(m):
     bot.send_message(m.chat.id, "ربات ریلود شد", parse_mode="Markdown")
@@ -67,7 +67,10 @@ def leave(m):
   if is_sudo(m.from_user.id) and 'supergroup' in m.chat.type:
     bot.leave_chat(m.chat.id)
    
-
+@bot.message_handler(func=lambda m: m.text == "پلاگین")
+def getplug(m):
+   bot.reply_to(m,'📁 پلاگین های ربات اسپید استار:\n📍برای روشن/خاموش کردن پلاگین روی پلاگین مورد نظر کلیک کنید :',reply_markup=plugs())
+  
 @bot.message_handler(func=lambda m: m.text.startswith("شارژ"))
 def setexpire(m):
   try:
