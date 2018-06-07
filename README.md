@@ -22,7 +22,7 @@ chmod +x install.sh
 
 ```
 chmod +x launch.sh
-screen ./lanch.sh
+screen ./launch.sh
 ```
 
 برای دریافت اخبار آپدیت ها در [کانال اسپید استار](https://telegram.me/speed_star) عضو شوید
