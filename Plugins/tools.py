@@ -26,24 +26,12 @@ def reload(m):
     python = sys.executable
     os.execl(python, python, *sys.argv)
 
-@bot.message_handler(func=lambda m: m.text.startswith("جواب"))
-def answer(m):
- try:
-   if is_sudo(m.from_user.id):
-       if m.reply_to_message:
-         id = m.reply_to_message.forward_from.id
-         text = m.text.replace('جواب ','')
-         bot.send_message(id,'پاسخ پشتیبان 👇 \n{} '.format(text))
-         bot.reply_to(m,'ارسال شد')
- except:
-  print('err')
-  
 @bot.message_handler(func=lambda m: m.text == "اطلاعات")
 def status(m):
   if is_sudo(m.from_user.id):
       b = ['text','photo','video','audio','voice','document','viceo_note','sticker','contact','forward','location']
       type = {'text':'متن','photo':'عکس','video':'فیلم','audio':'موزیک','voice':'صدا','document':'فایل','viceo_note':'پیام ویدئویی','sticker':'استیکر','contact':'شماره','forward':'فوردارد','location':'لوکیشن'}
-      text = 'تعداد کل پیام های دریافتی 📝\n'
+      text = 'آمار ربات اسپید استار 📊\n'
       x = 0
       for i in b:
        count = redis.scard(i)
@@ -51,6 +39,7 @@ def status(m):
        text += '{} : {}\n--------------\n'.format(type[i],count)
       text += '📑 تعداد کل پیام ها : '+str(x)
       text += '\n👥 تعداد کل گروه ها : '+str(redis.scard('groups'))
+      text += '\n👥 تعداد کاربران ربات : '+str(redis.scard('mbr'))
       bot.reply_to(m,text)
 	  
 	  
@@ -78,10 +67,7 @@ def leave(m):
   if is_sudo(m.from_user.id) and 'supergroup' in m.chat.type:
     bot.leave_chat(m.chat.id)
    
-@bot.message_handler(func=lambda m: m.text == "پلاگین")
-def getplug(m):
-   bot.reply_to(m,'📁 پلاگین های ربات اسپید استار:\n📍برای روشن/خاموش کردن پلاگین روی پلاگین مورد نظر کلیک کنید :',reply_markup=plugs())
-  
+
 @bot.message_handler(func=lambda m: m.text.startswith("شارژ"))
 def setexpire(m):
   try:
