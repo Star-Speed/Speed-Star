@@ -105,7 +105,7 @@ starttext = '''
 💫 به ربات "آنتی اسپم Speed Star🌟 " خوش امدید ✨
 ⚜️ ساخته شده با ❤️ فقط برای شما ☺️
 Git : https://github.com/Star-Speed/Speed-Star
-@MagicStar'''
+@Speed_Star'''
 
 about = '''Speed Star Bot .
 Version : 1.2
