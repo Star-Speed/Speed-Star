@@ -29,6 +29,7 @@ botid = bot.get_me().id
 redis = redis.StrictRedis(host='localhost', port=6379, db=0)
 redis.set('tools.py',True)
 redis.set('callback.py',True)
+redis.set("plugins.py",True)
 
 def dates():
     res = "http://irapi.ir/time/"
@@ -61,6 +62,18 @@ def is_cr(chat_id, user_id):
         var = True
     return var
 
+def antiflood(m):
+  if not is_sudo(m.from_user.id):
+    _hash = "anti_flood:user:" + str(m.from_user.id)
+    max_time = 2
+    max_msg = 2
+    msgs = int(redis.get(_hash) or 0)
+    redis.setex(_hash, max_time, int(msgs) + int(1))
+    if int(msgs) >= int(max_msg):
+      bot.reply_to(m,"شما به دلیل ارسال پشت سرهم پیغام، 60 ثانیه مسدود شدید 🚫")
+      redis.delete(_hash)
+      redis.setex('ban'+str(m.from_user.id),60,True)
+	  
 def download_file(u,n):
             ret_msg = u
             file_info = bot.get_file(ret_msg) 
@@ -117,6 +130,22 @@ def check_pm(m):
       bot.leave_chat(m.chat.id)
      else:
       check(m)
+ if m.chat.type == 'private':
+   if m.reply_to_message.forward_from:
+    if is_sudo(m.from_user.id):
+     id =  m.reply_to_message.forward_from.id
+     if m.text == 'مسدود':
+      redis.set('ban'+str(id),True)
+      bot.reply_to(m,'این کاربر دیگر قادر به استفاده از پیوی ربات نیست ❌')
+     elif m.text:
+      bot.send_message(id,m.text)
+      bot.reply_to(m,'رفت براش')
+     elif m.sticker:
+      bot.send_sticker(id,m.sticker.file_id)
+      bot.reply_to(m,'رفت براش')
+     elif m.photo:
+      bot.send_photo(id,m.photo[-1].file_id)
+      bot.reply_to(m,'رفت براش')
 	  
 bot.polling(True)
 
