@@ -22,15 +22,24 @@ reload(sys)
 session = requests.session()
 import math
 sys.setdefaultencoding("utf-8")
+redis = redis.StrictRedis(host='localhost', port=6379, db=0)
 #----------------------------
 execfile("config.py")
+
+_check = requests.get("https://api.telegram.org/bot{}/getMe".format(Token)).json()
+if _check["ok"] == True:
+  print(':)')
+else:
+  print('\033[01;31mPlease replace the healthy token')
+  exit()
+
+#----------------------------
 bot = telebot.TeleBot(Token)
 botid = bot.get_me().id
-redis = redis.StrictRedis(host='localhost', port=6379, db=0)
 redis.set('tools.py',True)
 redis.set('callback.py',True)
 redis.set("plugins.py",True)
-
+  
 def dates():
     res = "http://irapi.ir/time/"
     opener = urllib2.build_opener()
